@@ -1,47 +1,16 @@
-import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { LoginForm } from './src/components';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HomeScreen, UsersScreen } from './src/screens';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [text, setText] = useState('');
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Hello World!</Text>
-      <Image source={{
-        uri: 'https://reactnative.dev/docs/assets/p_cat2.png'
-      }}
-        style={{ width: 200, height: 200 }}
-      />
-      <TextInput
-        style={{ height: 40 }}
-        placeholder="Escribe algo..."
-        onChangeText={newText => setText(newText)}
-        defaultValue={text}
-      />
-
-      <Text>Hallo: {text}</Text>
-
-      <LoginForm />
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Bienvenido' }} />
+        <Stack.Screen name="Users" component={UsersScreen} options={{ title: 'Usuarios' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    minHeight: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#234af2',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'semibold',
-    color: 'white',
-  }
-})
